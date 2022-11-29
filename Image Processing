@@ -1,0 +1,21 @@
+import cv2
+
+img = cv2.imread("Pic/images.jpg")
+
+def getcontours(img):
+    contours, hierarchy = cv2.findcountours(img, cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
+    for contour in contours:
+        area = cv2.contourArea(contour)
+        print(area)
+        cv2.drawContours(img, contour, -1,(255,0,0),3)
+
+imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+imgblur = cv2.GaussianBlur(imgGray, (7, 7), 1)
+imgcanny = cv2.Canny(imgblur, 150, 150)
+
+cv2.imshow("image", img)
+cv2.imshow("imageGray", imgGray)
+cv2.imshow("imageBlurr", imgblur)
+cv2.imshow("imagecanny", imgcanny)
+getcontours(img)
+cv2.waitKey(1)
